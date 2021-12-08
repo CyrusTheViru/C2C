@@ -154,5 +154,23 @@ elif fahrparcours == 3:
     sensorCar.drive_forward(50)
     sensorCar.check_obstacle()
 
+elif fahrparcours == 4:
+    print("Das Auto fährt Fahrparcours 4.")
+
+    for i in range(3):
+        print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
+        sensorCar.set_steering_angle(90)
+        time.sleep(.1)
+        sensorCar.drive_forward(50)
+        sensorCar.check_obstacle()
+        time.sleep(.5)
+        print("Hindernis ausweichen.")
+        sensorCar.set_steering_angle(45)
+        time.sleep(.1)
+        sensorCar.drive_backward(30)
+        time.sleep(1)
+        sensorCar.drive_stop()
+
+
 else:
     print("Kein gültiger Fahrparcours ausgewählt!")
