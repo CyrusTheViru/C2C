@@ -55,50 +55,37 @@ class BaseCar:
 ### Unterklasse
 class SensorCar(BaseCar):
     """
-    Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt die Methoden:
-    - set_steering_angle(int): Setzt Lenkwinkel
-    - get_steering_angle(): Rückgabe des aktuellen Lenkwinkels
-    - drive_forward(int): Vorwärtsfahren mit übergebener Geschwindigkeit
-    - drive_backward(int): Rückwärtsfahren mit übergebener Geschwindigkeit
-    - drive_stop(): Anhalten
-    - get_speed(): Rückgabe der aktuellen Geschwindigkeit
-    - get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, ‑1 Rückwärts)
+    Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
     Zusätzlich hat die Klasse die Methode:
-    - 
+    - check_Obstacle um mittels Ultraschallsensor Hindernisse zu erkennen und anzuhalten.
     """
     def __init__(self, turning_offset, forward_A, forward_B):
         super().__init__(turning_offset, forward_A, forward_B)
-        uss = bk.Ultrasonic()
-
-    def set_steering_angle(self, turn_angle = 0):
-        super().set_steering_angle(turn_angle = 0)
-
-    def get_steering_angle(self):
-        super().get_steering_angle()
-
-    def drive_forward(self, speed = 0):
-        super().drive_forward(speed = 0)
-
-    def drive_backward(self, speed = 0):
-        super().drive_backward(speed = 0)
-
-    def drive_stop(self):
-        super().drive_stop()
-
-    def get_speed(self):
-        super().get_speed()
-
-    def get_direction(self):
-        super().get_direction()
+        self.uss = bk.Ultrasonic(preparation_time=0.01, impuls_length=0.00001, timeout=0.05)
+        self.uss.stop()
 
     def check_obstacle(self):
-        
+        while True:
+            
+            distance = self.uss.distance()
 
+            if distance < 0:
+                print("Keine plausiblen Ultraschallwerte. Messung wird wiederholt.")
+                continue
+            elif distance >= 0 and distance <= 5:
+                print("Der Abstand zum Hindernis ist kleiner als 5 cm. Das Auto wird angehalten.")
+                super().drive_stop()
+                break
+            elif distance > 5:
+                continue
 
+            time.sleep(.1)
+                 
 
-car = BaseCar(30,1,1)    
+car = BaseCar(30,1,1)
+sensorCar = SensorCar(30,1,1)    
 
-fahrparcours = 2
+fahrparcours = 3
 
 if fahrparcours == 1:
 
@@ -157,6 +144,15 @@ elif fahrparcours == 2:
 
     print("Das Auto hat den Fahrparcours beendet.")
     car.drive_stop()
+
+elif fahrparcours == 3:
+    print("Das Auto fährt Fahrparcours 3.")
+
+    print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
+    sensorCar.set_steering_angle(90)
+    time.sleep(.1)
+    sensorCar.drive_forward(50)
+    sensorCar.check_obstacle()
 
 else:
     print("Kein gültiger Fahrparcours ausgewählt!")
