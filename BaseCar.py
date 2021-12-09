@@ -1,3 +1,4 @@
+from os import abort
 import basisklassen as bk
 import time
 import numpy as np
@@ -142,8 +143,8 @@ class SensorCar(BaseCar):
         writer.writerow([timestamp, "###", "###", "###", "###"])  
 
 
-def func_fahrparcour1():
-    car = BaseCar(30,1,1)
+def func_fahrparcour1(temp_CarConfig):
+    car = BaseCar(temp_CarConfig)
     print("Das Auto fährt Fahrparcours 1.")
 
     print("Das Auto fährt 3 Sekunden vorwärts.")
@@ -205,8 +206,8 @@ def func_fahrparcour3():
     sensorCar.drive_forward_sensor(50)
     sensorCar.check_obstacle(10)
 
-def func_fahrparcour4(anzahl_hindernisse :int):
-    sensorCar = SensorCar(30,1,1) 
+def func_fahrparcour4(anzahl_hindernisse :int, temp_CarConfig):
+    sensorCar = SensorCar(temp_CarConfig)
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
@@ -252,18 +253,42 @@ def FormatChanger():
 #FormatChanger()
 import config as conf
 CarSeting = conf.turning_offset
+CarConfig =[
+    conf.turning_offset,
+    conf.forward_A,
+    conf.forward_B
+] 
+print(CarConfig)
+doExit = False
+while doExit==False:
+    """Nutzerabfrage für den gewünschten Fahrparcour"""
+    print("Übersicht der Funktionen: ")
+    print("  10 Fahrprofil")
+    print("  20 Settings")
+    print("  90 Exit")
+    TopMenu = int(input("Was wollen wir machen:"))
+    if TopMenu == 10: #Fahrprofile
+        while doExit==False:
+            fahrparcour_num = int(input("Welcher Fahrparcour(1-4) soll gefahren werden. 90 = Exit: "))
 
-"""Nutzerabfrage für den gewünschten Fahrparcour"""
-fahrparcour_num = int(input("Welcher Fahrparcour soll gefahren werden: "))
+            if fahrparcour_num == 1:
+                func_fahrparcour1(CarConfig)
+            elif fahrparcour_num == 2:
+                func_fahrparcour2(CarConfig)
+            elif fahrparcour_num == 3:
+                func_fahrparcour3(CarConfig)
+            elif fahrparcour_num == 4:
+                Hindernisse = int(input("wieviele Hindernisse?: "))
+                func_fahrparcour4(Hindernisse, CarConfig)
+            elif fahrparcour_num == 90:
+                doExit = True
+            else:
+                print("Ungueltiger Fahrparcour")
+        doExit = False
+    elif TopMenu == 20: #Settings
+        FormatChanger()
+    elif TopMenu == 90: #Exit
+        doExit = True
+    else:
+        print("Ungueltige Eingabe")
 
-if fahrparcour_num == 1:
-    func_fahrparcour1()
-elif fahrparcour_num == 2:
-    func_fahrparcour2()
-elif fahrparcour_num == 3:
-    func_fahrparcour3()
-elif fahrparcour_num == 4:
-    Hindernisse = int(input("wieviele Hindernisse?: "))
-    func_fahrparcour4(Hindernisse)
-else:
-    print("Ungueltiger Fahrparcour")
