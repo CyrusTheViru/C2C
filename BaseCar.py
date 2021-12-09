@@ -226,7 +226,32 @@ def func_fahrparcour4(anzahl_hindernisse :int):
         time.sleep(1.5)
         sensorCar.drive_stop_sensor()
         sensorCar.set_steering_angle_sensor(90)
-                
+
+def FormatChanger():
+    """
+        Diese Funktion liest die Config Datei aus dem Raspberry
+        und legt mit dem angepassten Inhalt eine config.py an.
+    """
+    with open("/home/pi/SunFounder_PiCar/picar/config","r") as file:
+        readline=file.read().splitlines()
+        # Name der erstellt werden soll
+        filename = "config.py"
+        # Öfnnen des File mit Schreibrechten
+        myfile = open(filename, 'w')
+        # Schreibt die eingelesen Parameter
+        myfile.write(readline[2])
+        # Schreibt Leerzeile
+        myfile.write('\n')
+        myfile.write(readline[4])
+        myfile.write('\n')
+        myfile.write(readline[6])
+        myfile.close()
+
+
+
+#FormatChanger()
+import config as conf
+CarSeting = conf.turning_offset
 
 """Nutzerabfrage für den gewünschten Fahrparcour"""
 fahrparcour_num = int(input("Welcher Fahrparcour soll gefahren werden: "))
