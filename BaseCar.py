@@ -141,9 +141,8 @@ class SensorCar(BaseCar):
         writer = csv.writer(open("Log_SensorCar_USS.csv", "a", newline=''))
         writer.writerow([timestamp, "###", "###", "###", "###"])  
 
-fahrparcours = 4
 
-if fahrparcours == 1:
+def func_fahrparcour1():
     car = BaseCar(30,1,1)
     print("Das Auto fährt Fahrparcours 1.")
 
@@ -164,7 +163,7 @@ if fahrparcours == 1:
     print("Das Auto hat den Fahrparcours beendet.")
     car.drive_stop()
 
-elif fahrparcours == 2:
+def func_fahrparcour2():
     car = BaseCar(30,1,1)
     print("Das Auto fährt Fahrparcours 2.")
 
@@ -175,6 +174,7 @@ elif fahrparcours == 2:
 
     print("Das Auto fährt 8 Sekunden mit vollem Lenkeinschlag im Uhrzeigersinn vorwärts.")
     car.set_steering_angle(135)
+    car.drive_forward(50)
     time.sleep(8)
 
     print("Das Auto wartet 1 Sekunde.")
@@ -195,7 +195,7 @@ elif fahrparcours == 2:
     print("Das Auto hat den Fahrparcours beendet.")
     car.drive_stop()
 
-elif fahrparcours == 3:
+def func_fahrparcour3():
     sensorCar = SensorCar(30,1,1) 
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 3.")
@@ -205,12 +205,12 @@ elif fahrparcours == 3:
     sensorCar.drive_forward_sensor(50)
     sensorCar.check_obstacle(10)
 
-elif fahrparcours == 4:
+def func_fahrparcour4(anzahl_hindernisse :int):
     sensorCar = SensorCar(30,1,1) 
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
-    for i in range(3):
+    for i in range(anzahl_hindernisse):
 
         print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
         sensorCar.set_steering_angle_sensor(90)
@@ -227,6 +227,18 @@ elif fahrparcours == 4:
         sensorCar.drive_stop_sensor()
         sensorCar.set_steering_angle_sensor(90)
                 
+
+"""Nutzerabfrage für den gewünschten Fahrparcour"""
+fahrparcour_num = int(input("Welcher Fahrparcour soll gefahren werden: "))
+
+if fahrparcour_num == 1:
+    func_fahrparcour1()
+elif fahrparcour_num == 2:
+    func_fahrparcour2()
+elif fahrparcour_num == 3:
+    func_fahrparcour3()
+elif fahrparcour_num == 4:
+    Hindernisse = int(input("wieviele Hindernisse?: "))
+    func_fahrparcour4(Hindernisse)
 else:
-    
-    print("Kein gültiger Fahrparcours ausgewählt!")
+    print("Ungueltiger Fahrparcour")
