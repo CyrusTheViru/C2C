@@ -77,7 +77,6 @@ class SensorCar(BaseCar):
         super().__init__(turning_offset, forward_A, forward_B)
         self._distance = 0
         
-
         if os.path.isfile("Log_SensorCar_USS.csv"):
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
@@ -128,7 +127,7 @@ class SensorCar(BaseCar):
 
     def write_logfile(self):
 
-        timestamp = datetime.datetime.now()
+        timestamp = datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3]
         speed = self.get_speed()
         direction = self. get_direction()
         steering_angle = self.get_steering_angle()
@@ -138,17 +137,14 @@ class SensorCar(BaseCar):
         writer.writerow([timestamp, speed, direction, steering_angle, distance])
 
     def write_logfile_new_run(self):
+        timestamp = datetime.datetime.now().strftime("%d.%m.%Y")
         writer = csv.writer(open("Log_SensorCar_USS.csv", "a", newline=''))
-        writer.writerow(["New run", "###", "###", "###", "###"])
-                 
-
-car = BaseCar(30,1,1)
-sensorCar = SensorCar(30,1,1)    
+        writer.writerow([timestamp, "###", "###", "###", "###"])  
 
 fahrparcours = 4
 
 if fahrparcours == 1:
-
+    car = BaseCar(30,1,1)
     print("Das Auto fährt Fahrparcours 1.")
 
     print("Das Auto fährt 3 Sekunden vorwärts.")
@@ -169,7 +165,7 @@ if fahrparcours == 1:
     car.drive_stop()
 
 elif fahrparcours == 2:
-
+    car = BaseCar(30,1,1)
     print("Das Auto fährt Fahrparcours 2.")
 
     print("Das Auto fährt 1 Sekunden vorwärts.")
@@ -200,6 +196,7 @@ elif fahrparcours == 2:
     car.drive_stop()
 
 elif fahrparcours == 3:
+    sensorCar = SensorCar(30,1,1) 
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 3.")
 
@@ -209,6 +206,7 @@ elif fahrparcours == 3:
     sensorCar.check_obstacle(10)
 
 elif fahrparcours == 4:
+    sensorCar = SensorCar(30,1,1) 
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
