@@ -19,10 +19,11 @@ class BaseCar:
     - get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, ‑1 Rückwärts)
     """
     
-    def __init__(self, turning_offset, forward_A, forward_B):
-        self._turning_offset = turning_offset
-        self._forward_A = forward_A
-        self._forward_B = forward_B
+    def __init__(self):
+        import config as conf
+        self._turning_offset = conf.turning_offset
+        self._forward_A = conf.forward_A
+        self._forward_B = conf.forward_B
         self._direction = 0
         self._speed = 0
         self._steering_angle = 0
@@ -143,8 +144,8 @@ class SensorCar(BaseCar):
         writer.writerow([timestamp, "###", "###", "###", "###"])  
 
 
-def func_fahrparcour1(temp_CarConfig):
-    car = BaseCar(temp_CarConfig)
+def func_fahrparcour1():
+    car = BaseCar()
     print("Das Auto fährt Fahrparcours 1.")
 
     print("Das Auto fährt 3 Sekunden vorwärts.")
@@ -165,7 +166,7 @@ def func_fahrparcour1(temp_CarConfig):
     car.drive_stop()
 
 def func_fahrparcour2():
-    car = BaseCar(30,1,1)
+    car = BaseCar()
     print("Das Auto fährt Fahrparcours 2.")
 
     print("Das Auto fährt 1 Sekunden vorwärts.")
@@ -197,7 +198,7 @@ def func_fahrparcour2():
     car.drive_stop()
 
 def func_fahrparcour3():
-    sensorCar = SensorCar(30,1,1) 
+    sensorCar = SensorCar() 
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 3.")
 
@@ -206,8 +207,8 @@ def func_fahrparcour3():
     sensorCar.drive_forward_sensor(50)
     sensorCar.check_obstacle(10)
 
-def func_fahrparcour4(anzahl_hindernisse :int, temp_CarConfig):
-    sensorCar = SensorCar(temp_CarConfig)
+def func_fahrparcour4(anzahl_hindernisse :int):
+    sensorCar = SensorCar()
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
@@ -250,15 +251,17 @@ def FormatChanger():
 
 
 
-#FormatChanger()
-import config as conf
+"""import config as conf
 CarSeting = conf.turning_offset
-CarConfig =[
-    conf.turning_offset,
-    conf.forward_A,
-    conf.forward_B
-] 
+CarConfig ={ 
+    "turning_offset" : conf.turning_offset,
+    "forward_A"      : conf.forward_A,
+    "forward_B"      : conf.forward_B
+}
 print(CarConfig)
+""" 
+
+
 doExit = False
 while doExit==False:
     """Nutzerabfrage für den gewünschten Fahrparcour"""
@@ -272,14 +275,14 @@ while doExit==False:
             fahrparcour_num = int(input("Welcher Fahrparcour(1-4) soll gefahren werden. 90 = Exit: "))
 
             if fahrparcour_num == 1:
-                func_fahrparcour1(CarConfig)
+                func_fahrparcour1()
             elif fahrparcour_num == 2:
-                func_fahrparcour2(CarConfig)
+                func_fahrparcour2()
             elif fahrparcour_num == 3:
-                func_fahrparcour3(CarConfig)
+                func_fahrparcour3()
             elif fahrparcour_num == 4:
                 Hindernisse = int(input("wieviele Hindernisse?: "))
-                func_fahrparcour4(Hindernisse, CarConfig)
+                func_fahrparcour4(Hindernisse)
             elif fahrparcour_num == 90:
                 doExit = True
             else:
