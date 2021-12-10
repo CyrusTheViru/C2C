@@ -64,6 +64,7 @@ class BaseCar:
         bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
         bw.stop()
         time.sleep(.1)
+        self._speed = 0
         self._direction = 0
 
     def get_speed(self):
@@ -260,6 +261,7 @@ def FormatChanger():
         myfile.write('\n')
         myfile.write(readline[6])
         myfile.close()
+    print("/home/pi/SunFounder_PiCar/picar/config wurde erfolgreich eingelesen.")
 
 if os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + "\config.py") == True:
     print("Das Config-File wurde bereits importiert.")
