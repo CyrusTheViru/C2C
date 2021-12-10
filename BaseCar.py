@@ -19,11 +19,11 @@ class BaseCar:
     - get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, ‑1 Rückwärts)
     """
     
-    def __init__(self):
+    def __init__(self, turning_offset, forward_A, forward_B):
         import config as conf
-        self._turning_offset = conf.turning_offset
-        self._forward_A = conf.forward_A
-        self._forward_B = conf.forward_B
+        self._turning_offset = turning_offset
+        self._forward_A = forward_A
+        self._forward_B = forward_B
         self._direction = 0
         self._speed = 0
         self._steering_angle = 0
@@ -43,14 +43,22 @@ class BaseCar:
         bw.speed = speed
         bw.forward()
         time.sleep(.1)
-        self._direction = 1
+        self._speed = bw.speed
+        if self._speed == 0:
+            self._direction = 0
+        else:
+            self._direction = 1
 
     def drive_backward(self, speed = 0):
         bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
         bw.speed = speed
         bw.backward()
         time.sleep(.1)
-        self._direction = -1
+        self._speed = bw.speed
+        if self._speed == 0:
+            self._direction = 0
+        else:
+            self._direction = -1
 
     def drive_stop(self):
         bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
@@ -59,8 +67,6 @@ class BaseCar:
         self._direction = 0
 
     def get_speed(self):
-        bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
-        self._speed = bw.speed
         return self._speed
 
     def get_direction(self):
@@ -79,10 +85,10 @@ class SensorCar(BaseCar):
         super().__init__(turning_offset, forward_A, forward_B)
         self._distance = 0
         
-        if os.path.isfile("Log_SensorCar_USS.csv"):
+        if os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + "\Log_SensorCar_USS.csv") == True:
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
-            writer = csv.writer(open("Log_SensorCar_USS.csv", "w", newline=''))
+            writer = csv.writer(open(os.path.dirname(os.path.realpath(__file__)) + "\Log_SensorCar_USS.csv", "w", newline=''))
             writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand Hindernis"])
 
     def set_steering_angle_sensor(self, turn_angle):
@@ -145,7 +151,8 @@ class SensorCar(BaseCar):
 
 
 def func_fahrparcour1():
-    car = BaseCar()
+    import config as conf
+    car = BaseCar(conf.turning_offset, conf.forward_A, conf.forward_B)
     print("Das Auto fährt Fahrparcours 1.")
 
     print("Das Auto fährt 3 Sekunden vorwärts.")
@@ -166,7 +173,8 @@ def func_fahrparcour1():
     car.drive_stop()
 
 def func_fahrparcour2():
-    car = BaseCar()
+    import config as conf
+    car = BaseCar(conf.turning_offset, conf.forward_A, conf.forward_B)
     print("Das Auto fährt Fahrparcours 2.")
 
     print("Das Auto fährt 1 Sekunden vorwärts.")
@@ -198,7 +206,9 @@ def func_fahrparcour2():
     car.drive_stop()
 
 def func_fahrparcour3():
-    sensorCar = SensorCar() 
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+    
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 3.")
 
@@ -208,7 +218,9 @@ def func_fahrparcour3():
     sensorCar.check_obstacle(10)
 
 def func_fahrparcour4(anzahl_hindernisse :int):
-    sensorCar = SensorCar()
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+
     sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
@@ -249,17 +261,10 @@ def FormatChanger():
         myfile.write(readline[6])
         myfile.close()
 
-
-
-"""import config as conf
-CarSeting = conf.turning_offset
-CarConfig ={ 
-    "turning_offset" : conf.turning_offset,
-    "forward_A"      : conf.forward_A,
-    "forward_B"      : conf.forward_B
-}
-print(CarConfig)
-""" 
+if os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + "\config.py") == True:
+    print("Das Config-File wurde bereits importiert.")
+else:
+    FormatChanger()
 
 
 doExit = False
