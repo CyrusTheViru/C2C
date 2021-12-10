@@ -89,7 +89,7 @@ class SensorCar(BaseCar):
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
             writer = csv.writer(open(os.path.dirname(os.path.realpath(__file__)) + "\Log_SensorCar_USS.csv", "w", newline=''))
-            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand Hindernis"])
+            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis"])
 
     def set_steering_angle_sensor(self, turn_angle):
         super().set_steering_angle(turn_angle)
