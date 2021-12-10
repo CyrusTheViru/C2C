@@ -5,6 +5,7 @@ import numpy as np
 import csv
 import os.path
 import datetime
+import random
 
 ### Hauptklasse
 class BaseCar:
@@ -108,7 +109,12 @@ class SensorCar(BaseCar):
         super().drive_stop()
         self.write_logfile()
 
-    def check_obstacle(self, distance_limit = 0):
+    def check_obstacle(self, distance_limit = 0, pre_distance_limit = 0):
+        
+        steering_angle = self.get_steering_angle()
+        speed = self.get_speed()
+        lenk_richtung = 5
+        beschleunigung = 5
 
         while True:
 
@@ -120,12 +126,51 @@ class SensorCar(BaseCar):
             if self._distance < 0:
                 print("Keine plausiblen Ultraschallwerte. Messung wird wiederholt.")
                 continue
+
             elif self._distance >= 0 and self._distance <= distance_limit:
                 print("Der Abstand zum Hindernis ist kleiner als " + str(distance_limit) + " cm. Das Auto wird angehalten.")
                 super().drive_stop()
                 self.write_logfile()
                 self.uss.stop()
                 break
+
+            elif self._distance > distance_limit and self._distance < pre_distance_limit:
+                if steering_angle != 90:
+                    self.set_steering_angle_sensor(90)
+                self.drive_forward_sensor(30)
+
+            elif self._distance > pre_distance_limit + 70:
+                steering_angle = self.get_steering_angle()
+                speed = self.get_speed()
+
+                if speed < 50:
+                    beschleunigung = 5
+                    self.drive_forward_sensor(50)
+
+                if speed < 100:
+                    
+                    if steering_angle <= 75:
+                        self.set_steering_angle_sensor(90)
+                        self.drive_forward_sensor(speed+5)
+                        lenk_richtung = 5
+                        time.sleep(.25)
+
+                    elif steering_angle >= 105:
+                        self.set_steering_angle_sensor(90)
+                        self.drive_forward_sensor(speed+5)
+                        time.sleep(.25)
+                        lenk_richtung = -5
+
+                    else:
+                        # Diese Zeile auskommentieren, wenn keine Kurvenfahrt während der Hinderniserkennung.
+                        # self.set_steering_angle_sensor(steering_angle + lenk_richtung)
+
+                        self.drive_forward_sensor(speed+beschleunigung)
+                        time.sleep(.25)
+
+                else:
+                    beschleunigung = -5
+
             elif self._distance > distance_limit:
                 continue
 
@@ -216,7 +261,7 @@ def func_fahrparcour3():
     print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
     sensorCar.set_steering_angle_sensor(90)
     sensorCar.drive_forward_sensor(50)
-    sensorCar.check_obstacle(10)
+    sensorCar.check_obstacle(10,30)
 
 def func_fahrparcour4(anzahl_hindernisse :int):
     import config as conf
@@ -230,7 +275,7 @@ def func_fahrparcour4(anzahl_hindernisse :int):
         print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
         sensorCar.set_steering_angle_sensor(90)
         sensorCar.drive_forward_sensor(50)
-        sensorCar.check_obstacle(10)
+        sensorCar.check_obstacle(10,30)
     
         print("Hindernis ausweichen.")
         sensorCar.set_steering_angle_sensor(45)
