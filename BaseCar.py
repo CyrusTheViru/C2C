@@ -86,10 +86,10 @@ class SensorCar(BaseCar):
         super().__init__(turning_offset, forward_A, forward_B)
         self._distance = 0
         
-        if os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + "\Log_SensorCar_USS.csv") == True:
+        if os.path.isfile("Log_SensorCar_USS.csv") == True:
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
-            writer = csv.writer(open(os.path.dirname(os.path.realpath(__file__)) + "\Log_SensorCar_USS.csv", "w", newline=''))
+            writer = csv.writer(open("Log_SensorCar_USS.csv", "w", newline=''))
             writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis"])
 
     def set_steering_angle_sensor(self, turn_angle):
@@ -263,7 +263,7 @@ def FormatChanger():
         myfile.close()
     print("/home/pi/SunFounder_PiCar/picar/config wurde erfolgreich eingelesen.")
 
-if os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + "\config.py") == True:
+if os.path.isfile("config.py") == True:
     print("Das Config-File wurde bereits importiert.")
 else:
     FormatChanger()
