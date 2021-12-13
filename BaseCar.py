@@ -86,11 +86,11 @@ class SensorCar(BaseCar):
         super().__init__(turning_offset, forward_A, forward_B)
         self._distance = 0
         
-        if os.path.isfile("Log_SensorCar_USS.csv") == True:
+        if os.path.isfile("Log_SensorCar_USS_IR.csv") == True:
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
-            writer = csv.writer(open("Log_SensorCar_USS.csv", "w", newline=''))
-            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis"])
+            writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "w", newline=''))
+            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis", "Infrarot_Analogdaten"])
 
     def set_steering_angle_sensor(self, turn_angle):
         super().set_steering_angle(turn_angle)
@@ -134,6 +134,19 @@ class SensorCar(BaseCar):
     def get_distance_uss(self):
         return self._distance
 
+    def get_ir_analog(self):
+        self._ir = bk.Infrared()
+        self._irAnalog = self._ir.read_analog()
+        return self._irAnalog
+
+    def follow_line(self):
+        
+        while True:
+            self._ir = bk.Infrared()
+            self._irAnalog = self._ir.read_analog()
+
+
+
     def write_logfile(self):
 
         timestamp = datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3]
@@ -141,14 +154,15 @@ class SensorCar(BaseCar):
         direction = self. get_direction()
         steering_angle = self.get_steering_angle()
         distance = self.get_distance_uss()
+        ir_data = self.get_ir_analog()
 
-        writer = csv.writer(open("Log_SensorCar_USS.csv", "a", newline=''))
-        writer.writerow([timestamp, speed, direction, steering_angle, distance])
+        writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "a", newline=''))
+        writer.writerow([timestamp, speed, direction, steering_angle, distance, ir_data])
 
     def write_logfile_new_run(self):
         timestamp = datetime.datetime.now().strftime("%d.%m.%Y")
         writer = csv.writer(open("Log_SensorCar_USS.csv", "a", newline=''))
-        writer.writerow([timestamp, "###", "###", "###", "###"])  
+        writer.writerow([timestamp, "###", "###", "###", "###", "###"])  
 
 
 def func_fahrparcour1():
@@ -210,7 +224,7 @@ def func_fahrparcour3():
     import config as conf
     sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
     
-    sensorCar.write_logfile_new_run()
+    #sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 3.")
 
     print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
@@ -222,7 +236,7 @@ def func_fahrparcour4(anzahl_hindernisse :int):
     import config as conf
     sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
 
-    sensorCar.write_logfile_new_run()
+    #sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 4.")
 
     for i in range(anzahl_hindernisse):
@@ -301,4 +315,3 @@ while doExit==False:
         doExit = True
     else:
         print("Ungueltige Eingabe")
-
