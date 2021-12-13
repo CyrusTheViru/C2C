@@ -154,7 +154,8 @@ class SensorCar(BaseCar):
         direction = self. get_direction()
         steering_angle = self.get_steering_angle()
         distance = self.get_distance_uss()
-        ir_data = self.get_ir_analog()
+        #ir_data = self.get_ir_analog()
+        ir_data = np.array(self.get_ir_analog())
 
         writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "a", newline=''))
         writer.writerow([timestamp, speed, direction, steering_angle, distance, ir_data])
