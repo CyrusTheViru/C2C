@@ -27,42 +27,40 @@ class BaseCar:
         self._direction = 0
         self._speed = 0
         self._steering_angle = 0#
-        self.fw = bk.Front_Wheels(turning_offset=self._turning_offset)
+        self._fw = bk.Front_Wheels(turning_offset=self._turning_offset)
+        self._bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
         self.drive_stop()
         self.set_steering_angle(90)
    
     def set_steering_angle(self, turn_angle = 0):
-        self._steering_angle = self.fw.turn(turn_angle)
+        self._steering_angle = self._fw.turn(turn_angle)
         time.sleep(.1)
 
     def get_steering_angle(self):
         return self._steering_angle
         
     def drive_forward(self, speed = 0):
-        bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
-        bw.speed = speed
-        bw.forward()
+        self._bw.speed = speed
+        self._bw.forward()
         time.sleep(.1)
-        self._speed = bw.speed
+        self._speed = self._bw.speed
         if self._speed == 0:
             self._direction = 0
         else:
             self._direction = 1
 
     def drive_backward(self, speed = 0):
-        bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
-        bw.speed = speed
-        bw.backward()
+        self._bw.speed = speed
+        self._bw.backward()
         time.sleep(.1)
-        self._speed = bw.speed
+        self._speed = self._bw.speed
         if self._speed == 0:
             self._direction = 0
         else:
             self._direction = -1
 
     def drive_stop(self):
-        bw = bk.Back_Wheels(forward_A=self._forward_A, forward_B=self._forward_B)
-        bw.stop()
+        self._bw.stop()
         time.sleep(.1)
         self._speed = 0
         self._direction = 0
@@ -85,6 +83,8 @@ class SensorCar(BaseCar):
     def __init__(self, turning_offset, forward_A, forward_B):
         super().__init__(turning_offset, forward_A, forward_B)
         self._distance = 0
+        import config as conf
+        self._ir = bk.Infrared(references = conf.ir_references)
         
         if os.path.isfile("Log_SensorCar_USS_IR.csv") == True:
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
@@ -137,31 +137,12 @@ class SensorCar(BaseCar):
         return self._distance
 
     def get_ir_analog(self):
-        self._ir = bk.Infrared()
         self._irAnalog = self._ir.read_analog()
         return self._irAnalog
 
     def get_ir_digital(self):
-        self._ir = bk.Infrared([44.11,  54.42,  51.93,  45.565, 35.22 ])
         self._irDigital = self._ir.read_digital()
         return self._irDigital
-
-    def follow_line(self):
-        
-        while True:
-            self._ir = bk.Infrared([44.11,  54.42,  51.93,  45.565, 35.22 ])
-            self._irAnalog = self._ir.read_analog()
-
-
-    def cali_reference(self):
-        #self._ir = bk.Infrared()
-        #self._cali_ref = self._ir.cali_references()
-        ir = bk.Infrared(references=[44.11,  54.42,  51.93,  45.565, 35.22 ])
-        ir.cali_references()
-
-    def set_ref(self):
-        ir = bk.Infrared(references=[44.11,  54.42,  51.93,  45.565, 35.22] )
-        ir.set_references(ref=[44.11,  54.42,  51.93,  45.565, 35.22 ])
 
     def write_logfile(self):
 
@@ -250,7 +231,7 @@ def func_fahrparcour3():
     sensorCar.drive_forward_sensor(30)
     sensorCar.check_obstacle(10)
 
-def func_fahrparcour4(anzahl_hindernisse :int):
+def func_fahrparcour4(anzahl_hindernisse = 3):
     import config as conf
     sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
 
@@ -312,7 +293,7 @@ def func_fahrparcour5():
 def func_fahrparcour6():
     import config as conf
     sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
-    print("Das Auto fährt Fahrparcours 5.")
+    print("Das Auto fährt Fahrparcours 6.")
     print("Das Auto fährt an der Linie entlang")
     sensorCar.set_steering_angle_sensor(90)
     sensorCar.drive_forward_sensor(30)
@@ -321,7 +302,10 @@ def func_fahrparcour6():
     
     while(sum(sensorCar.get_ir_digital())!=0):
         print(sensorCar.get_distance_uss())
-        if sensorCar.get_distance_uss() >=10:
+        if sensorCar.get_distance_uss() <= 0:
+            print("Keine plausiblen Ultraschallwerte. Messung wird wiederholt.")
+            continue
+        elif sensorCar.get_distance_uss() >= 20:
             if sensorCar.get_ir_digital() == ([0, 0, 1, 0, 0]):
                 sensorCar.set_steering_angle_sensor(90)
             elif sensorCar.get_ir_digital() == ([0, 0, 1, 1, 0]):
@@ -345,24 +329,26 @@ def func_fahrparcour6():
         else: break
     sensorCar.drive_stop_sensor()
 
-
-
-
-def setIrCalibrierung():
+def setIRCalibration():
+    #Initialle Kalibrierung der Infrarot Sensoren
+    ir = bk.Infrared()
+    ir.cali_references()
+    filename = "config.py"
+    # Öfnnen des File mit Schreibrechten
+    myfile = open(filename, 'a')
+    # Schreibt Leerzeile
+    myfile.write('\n')
+    # Schreibt die eingelesen Parameter
+    myfile.write("ir_references = " + str(list(ir._references)))
+    print(" Die Referenzwerte für den IR-Sensor wurden erfolgreich in die Config geschrieben.")
+    
+def setIRCalibrationNew():
+    #Neue Kalibrierung der Infrarot Sensoren zur Laufzeit
+    ir = bk.Infrared()
+    ir.cali_references()
     import config as conf
-    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+    conf.ir_references = list(ir._references)
 
-    #Kalibrierung der Infrarot Sensoren
-    print("Kalibrierung der Infrarot Sensoren wird gestartet")
-    sensorCar.cali_reference()
-
-def setIrReference():
-    import config as conf
-    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
-
-    #Kalibrierung der Infrarot Sensoren
-    print("Referenzierung der Infrarot Sensoren wird gestartet")
-    sensorCar.set_ref()
 
 def FormatChanger():
     """
@@ -389,7 +375,7 @@ if os.path.isfile("config.py") == True:
     print("Das Config-File wurde bereits importiert.")
 else:
     FormatChanger()
-
+    setIRCalibration()
 
 doExit = False
 while doExit==False:
@@ -427,9 +413,7 @@ while doExit==False:
             if SetID == 10: 
                 FormatChanger()
             elif SetID == 20:
-                setIrCalibrierung()
-            elif SetID == 30:
-                setIrReference()
+                setIRCalibrationNew()
             elif SetID == 90:
                 doExit = True
             else:
