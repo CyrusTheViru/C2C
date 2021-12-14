@@ -90,7 +90,7 @@ class SensorCar(BaseCar):
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
             writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "w", newline=''))
-            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis", "Infrarot_Analogdaten"])
+            writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis", "Infrarot_Analogdaten", "Infrarot_Digitalwerte"])
 
     def set_steering_angle_sensor(self, turn_angle):
         super().set_steering_angle(turn_angle)
@@ -139,13 +139,27 @@ class SensorCar(BaseCar):
         self._irAnalog = self._ir.read_analog()
         return self._irAnalog
 
+    def get_ir_digital(self):
+        self._ir = bk.Infrared([79.795, 83.5, 61.385, 78.495, 72.515])
+        self._irDigital = self._ir.read_digital()
+        return self._irDigital
+
     def follow_line(self):
         
         while True:
-            self._ir = bk.Infrared()
+            self._ir = bk.Infrared([79.795, 83.5, 61.385, 78.495, 72.515])
             self._irAnalog = self._ir.read_analog()
 
 
+    def cali_reference(self):
+        #self._ir = bk.Infrared()
+        #self._cali_ref = self._ir.cali_references()
+        ir = bk.Infrared(references=[79.795, 83.5, 61.385, 78.495, 72.515])
+        ir.cali_references()
+
+    def set_ref(self):
+        ir = bk.Infrared(references=[79.795, 83.5, 61.385, 78.495, 72.515])
+        ir.set_references(ref=[79.795, 83.5, 61.385, 78.495, 72.515])
 
     def write_logfile(self):
 
@@ -156,9 +170,10 @@ class SensorCar(BaseCar):
         distance = self.get_distance_uss()
         #ir_data = self.get_ir_analog()
         ir_data = np.array(self.get_ir_analog())
+        ir_digital = self.get_ir_digital()
 
         writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "a", newline=''))
-        writer.writerow([timestamp, speed, direction, steering_angle, distance, ir_data])
+        writer.writerow([timestamp, speed, direction, steering_angle, distance, ir_data, ir_digital])
 
     def write_logfile_new_run(self):
         timestamp = datetime.datetime.now().strftime("%d.%m.%Y")
@@ -230,7 +245,7 @@ def func_fahrparcour3():
 
     print("Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft.")
     sensorCar.set_steering_angle_sensor(90)
-    sensorCar.drive_forward_sensor(50)
+    sensorCar.drive_forward_sensor(30)
     sensorCar.check_obstacle(10)
 
 def func_fahrparcour4(anzahl_hindernisse :int):
@@ -256,6 +271,31 @@ def func_fahrparcour4(anzahl_hindernisse :int):
         time.sleep(1.5)
         sensorCar.drive_stop_sensor()
         sensorCar.set_steering_angle_sensor(90)
+
+def func_fahrparcour5():
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+    
+    #sensorCar.write_logfile_new_run()
+    print("Das Auto fährt Fahrparcours 5.")
+
+    
+
+def setIrCalibrierung():
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+
+    #Kalibrierung der Infrarot Sensoren
+    print("Kalibrierung der Infrarot Sensoren wird gestartet")
+    sensorCar.cali_reference()
+
+def setIrReference():
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+
+    #Kalibrierung der Infrarot Sensoren
+    print("Referenzierung der Infrarot Sensoren wird gestartet")
+    sensorCar.set_ref()
 
 def FormatChanger():
     """
@@ -311,7 +351,19 @@ while doExit==False:
                 print("Ungueltiger Fahrparcour")
         doExit = False
     elif TopMenu == 20: #Settings
-        FormatChanger()
+        while doExit==False:
+            SetID = int(input("Welche einstellungen sollen durchgeführt werden: 10 = formatchanger; 20 = Kalibrierung IR; 30 = Refernezierung setzen"))
+            if SetID == 10: 
+                FormatChanger()
+            elif SetID == 20:
+                setIrCalibrierung()
+            elif SetID == 30:
+                setIrReference()
+            elif SetID == 90:
+                doExit = True
+            else:
+                print("keine Einstellung verfügbar")
+        doExit = False
     elif TopMenu == 90: #Exit
         doExit = True
     else:
