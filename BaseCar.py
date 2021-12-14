@@ -26,13 +26,13 @@ class BaseCar:
         self._forward_B = forward_B
         self._direction = 0
         self._speed = 0
-        self._steering_angle = 0
+        self._steering_angle = 0#
+        self.fw = bk.Front_Wheels(turning_offset=self._turning_offset)
         self.drive_stop()
         self.set_steering_angle(90)
    
     def set_steering_angle(self, turn_angle = 0):
-        fw = bk.Front_Wheels(turning_offset=self._turning_offset)
-        self._steering_angle = fw.turn(turn_angle)
+        self._steering_angle = self.fw.turn(turn_angle)
         time.sleep(.1)
 
     def get_steering_angle(self):
@@ -132,6 +132,8 @@ class SensorCar(BaseCar):
             time.sleep(.1)
 
     def get_distance_uss(self):
+        self.uss = bk.Ultrasonic(preparation_time=0.01, impuls_length=0.00001, timeout=0.05)
+        self._distance = self.uss.distance()
         return self._distance
 
     def get_ir_analog(self):
@@ -140,26 +142,26 @@ class SensorCar(BaseCar):
         return self._irAnalog
 
     def get_ir_digital(self):
-        self._ir = bk.Infrared([79.795, 83.5, 61.385, 78.495, 72.515])
+        self._ir = bk.Infrared([44.11,  54.42,  51.93,  45.565, 35.22 ])
         self._irDigital = self._ir.read_digital()
         return self._irDigital
 
     def follow_line(self):
         
         while True:
-            self._ir = bk.Infrared([79.795, 83.5, 61.385, 78.495, 72.515])
+            self._ir = bk.Infrared([44.11,  54.42,  51.93,  45.565, 35.22 ])
             self._irAnalog = self._ir.read_analog()
 
 
     def cali_reference(self):
         #self._ir = bk.Infrared()
         #self._cali_ref = self._ir.cali_references()
-        ir = bk.Infrared(references=[79.795, 83.5, 61.385, 78.495, 72.515])
+        ir = bk.Infrared(references=[44.11,  54.42,  51.93,  45.565, 35.22 ])
         ir.cali_references()
 
     def set_ref(self):
-        ir = bk.Infrared(references=[79.795, 83.5, 61.385, 78.495, 72.515])
-        ir.set_references(ref=[79.795, 83.5, 61.385, 78.495, 72.515])
+        ir = bk.Infrared(references=[44.11,  54.42,  51.93,  45.565, 35.22] )
+        ir.set_references(ref=[44.11,  54.42,  51.93,  45.565, 35.22 ])
 
     def write_logfile(self):
 
@@ -272,14 +274,79 @@ def func_fahrparcour4(anzahl_hindernisse :int):
         sensorCar.drive_stop_sensor()
         sensorCar.set_steering_angle_sensor(90)
 
+
 def func_fahrparcour5():
     import config as conf
     sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
-    
-    #sensorCar.write_logfile_new_run()
     print("Das Auto fährt Fahrparcours 5.")
-
+    print("Das Auto fährt an der Linie entlang")
+    sensorCar.set_steering_angle_sensor(90)
+    sensorCar.drive_forward_sensor(30)
+    #sensorCar.check_obstacle(10)
+    #sensorCar.write_logfile_new_run()
     
+    while(sum(sensorCar.get_ir_digital())!=0):
+        if sensorCar.get_ir_digital() == ([0, 0, 1, 0, 0]):
+            sensorCar.set_steering_angle_sensor(90)
+        elif sensorCar.get_ir_digital() == ([0, 0, 1, 1, 0]):
+            sensorCar.set_steering_angle_sensor(100)
+        elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 0]):
+            sensorCar.set_steering_angle_sensor(110)
+        elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 1]):
+            sensorCar.set_steering_angle_sensor(120)
+        elif sensorCar.get_ir_digital() == ([0, 0, 0, 0, 1]):
+            sensorCar.set_steering_angle_sensor(130)
+        elif sensorCar.get_ir_digital() == ([0, 1, 1, 0, 0]):
+            sensorCar.set_steering_angle_sensor(80)
+        elif sensorCar.get_ir_digital() == ([0, 1, 0, 0, 0]):
+            sensorCar.set_steering_angle_sensor(70)
+        elif sensorCar.get_ir_digital() == ([1, 1, 0, 0, 0]):
+            sensorCar.set_steering_angle_sensor(60)
+        elif sensorCar.get_ir_digital() == ([1, 0, 0, 0, 0]):
+            sensorCar.set_steering_angle_sensor(50)
+        else: break
+        time.sleep(0.1)
+    sensorCar.drive_stop_sensor()
+
+
+def func_fahrparcour6():
+    import config as conf
+    sensorCar = SensorCar(conf.turning_offset, conf.forward_A, conf.forward_B)
+    print("Das Auto fährt Fahrparcours 5.")
+    print("Das Auto fährt an der Linie entlang")
+    sensorCar.set_steering_angle_sensor(90)
+    sensorCar.drive_forward_sensor(30)
+    #sensorCar.check_obstacle(10)
+    #sensorCar.write_logfile_new_run()
+    
+    while(sum(sensorCar.get_ir_digital())!=0):
+        print(sensorCar.get_distance_uss())
+        if sensorCar.get_distance_uss() >=10:
+            if sensorCar.get_ir_digital() == ([0, 0, 1, 0, 0]):
+                sensorCar.set_steering_angle_sensor(90)
+            elif sensorCar.get_ir_digital() == ([0, 0, 1, 1, 0]):
+                sensorCar.set_steering_angle_sensor(100)
+            elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 0]):
+                sensorCar.set_steering_angle_sensor(110)
+            elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 1]):
+                sensorCar.set_steering_angle_sensor(120)
+            elif sensorCar.get_ir_digital() == ([0, 0, 0, 0, 1]):
+                sensorCar.set_steering_angle_sensor(130)
+            elif sensorCar.get_ir_digital() == ([0, 1, 1, 0, 0]):
+                sensorCar.set_steering_angle_sensor(80)
+            elif sensorCar.get_ir_digital() == ([0, 1, 0, 0, 0]):
+                sensorCar.set_steering_angle_sensor(70)
+            elif sensorCar.get_ir_digital() == ([1, 1, 0, 0, 0]):
+                sensorCar.set_steering_angle_sensor(60)
+            elif sensorCar.get_ir_digital() == ([1, 0, 0, 0, 0]):
+                sensorCar.set_steering_angle_sensor(50)
+            else: break
+            time.sleep(0.1)
+        else: break
+    sensorCar.drive_stop_sensor()
+
+
+
 
 def setIrCalibrierung():
     import config as conf
@@ -334,7 +401,7 @@ while doExit==False:
     TopMenu = int(input("Was wollen wir machen:"))
     if TopMenu == 10: #Fahrprofile
         while doExit==False:
-            fahrparcour_num = int(input("Welcher Fahrparcour(1-4) soll gefahren werden. 90 = Exit: "))
+            fahrparcour_num = int(input("Welcher Fahrparcour(1-6) soll gefahren werden. 90 = Exit: "))
 
             if fahrparcour_num == 1:
                 func_fahrparcour1()
@@ -345,6 +412,10 @@ while doExit==False:
             elif fahrparcour_num == 4:
                 Hindernisse = int(input("wieviele Hindernisse?: "))
                 func_fahrparcour4(Hindernisse)
+            elif fahrparcour_num == 5:
+                func_fahrparcour5()
+            elif fahrparcour_num == 6:
+                func_fahrparcour6()
             elif fahrparcour_num == 90:
                 doExit = True
             else:
