@@ -1,0 +1,275 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>BaseCar module &#8212; C2C_Gruppe3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="basisklassen module" href="basisklassen.html" />
+    <link rel="prev" title="C2C-SensorCar" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-BaseCar">
+<span id="basecar-module"></span><h1>BaseCar module<a class="headerlink" href="#module-BaseCar" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="BaseCar.BaseCar">
+<em class="property">class </em><code class="descclassname">BaseCar.</code><code class="descname">BaseCar</code><span class="sig-paren">(</span><em>turning_offset</em>, <em>forward_A</em>, <em>forward_B</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diese Klasse ruft die Klassen und Methoden der Datei basisklassen.py aufund behinhaltet folgende Methoden :
+- set_steering_angle(int): Setzt Lenkwinkel
+- get_steering_angle(): Rückgabe des aktuellen Lenkwinkels
+- drive_forward(int): Vorwärtsfahren mit übergebener Geschwindigkeit
+- drive_backward(int): Rückwärtsfahren mit übergebener Geschwindigkeit
+- drive_stop(): Anhalten
+- get_speed(): Rückgabe der aktuellen Geschwindigkeit
+- get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, -1 Rückwärts)</p>
+<dl class="method">
+<dt id="BaseCar.BaseCar.drive_backward">
+<code class="descname">drive_backward</code><span class="sig-paren">(</span><em>speed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_backward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.drive_forward">
+<code class="descname">drive_forward</code><span class="sig-paren">(</span><em>speed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.drive_stop">
+<code class="descname">drive_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.get_direction">
+<code class="descname">get_direction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_direction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.get_speed">
+<code class="descname">get_speed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.get_steering_angle">
+<code class="descname">get_steering_angle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_steering_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.BaseCar.set_steering_angle">
+<code class="descname">set_steering_angle</code><span class="sig-paren">(</span><em>turn_angle=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.set_steering_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.FormatChanger">
+<code class="descclassname">BaseCar.</code><code class="descname">FormatChanger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.FormatChanger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diese Funktion liest die Config Datei aus dem Raspberry
+und legt mit dem angepassten Inhalt eine config.py an.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="BaseCar.SensorCar">
+<em class="property">class </em><code class="descclassname">BaseCar.</code><code class="descname">SensorCar</code><span class="sig-paren">(</span><em>turning_offset</em>, <em>forward_A</em>, <em>forward_B</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#BaseCar.BaseCar" title="BaseCar.BaseCar"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCar.BaseCar</span></code></a></p>
+<p>Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
+Zusätzlich hat die Klasse die Methoden:
+- check_Obstacle: Mittels Ultraschallsensor Hindernisse erkennen und anzuhalten.
+- write_logfile: Zeitstempel, Geschwindigkeit, Fahrtrichtung, Lenkwinkel und Abstand Hindernis in CSV-Datei speichern
+- write_logfile_new_run:</p>
+<dl class="method">
+<dt id="BaseCar.SensorCar.check_obstacle">
+<code class="descname">check_obstacle</code><span class="sig-paren">(</span><em>distance_limit=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.check_obstacle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.drive_backward_sensor">
+<code class="descname">drive_backward_sensor</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_backward_sensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.drive_forward_sensor">
+<code class="descname">drive_forward_sensor</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_forward_sensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.drive_stop_sensor">
+<code class="descname">drive_stop_sensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_stop_sensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.get_distance_uss">
+<code class="descname">get_distance_uss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_distance_uss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.get_ir_analog">
+<code class="descname">get_ir_analog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_analog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.get_ir_digital">
+<code class="descname">get_ir_digital</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_digital" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.set_steering_angle_sensor">
+<code class="descname">set_steering_angle_sensor</code><span class="sig-paren">(</span><em>turn_angle</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.set_steering_angle_sensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.write_logfile">
+<code class="descname">write_logfile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.write_logfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.write_logfile_new_run">
+<code class="descname">write_logfile_new_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.write_logfile_new_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour1">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour2">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour3">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour4">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour4</code><span class="sig-paren">(</span><em>anzahl_hindernisse=3</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour5">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour5</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.func_fahrparcour6">
+<code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour6</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.setIRCalibration">
+<code class="descclassname">BaseCar.</code><code class="descname">setIRCalibration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.setIRCalibration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="BaseCar.setIRCalibrationNew">
+<code class="descclassname">BaseCar.</code><code class="descname">setIRCalibrationNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.setIRCalibrationNew" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="BaseCar.py.html">C2C_Gruppe3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">C2C-SensorCar</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BaseCar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basisklassen.html">basisklassen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="BaseCar.py.html">Documentation overview</a><ul>
+  <li><a href="modules.html">C2C-SensorCar</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">C2C-SensorCar</a></li>
+      <li>Next: <a href="basisklassen.html" title="next chapter">basisklassen module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Kev.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/BaseCar.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,7 @@
+open module
+===========
+
+.. automodule:: open
+    :members:
+    :undoc-members:
+    :show-inheritance:
