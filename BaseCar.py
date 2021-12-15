@@ -1,3 +1,4 @@
+# coding=utf-8
 from os import abort
 import basisklassen as bk
 import time
@@ -16,7 +17,7 @@ class BaseCar:
     - drive_backward(int): Rückwärtsfahren mit übergebener Geschwindigkeit
     - drive_stop(): Anhalten
     - get_speed(): Rückgabe der aktuellen Geschwindigkeit
-    - get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, ‑1 Rückwärts)
+    - get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, -1 Rückwärts)
     """
     
     def __init__(self, turning_offset, forward_A, forward_B):
@@ -330,6 +331,7 @@ def func_fahrparcour6():
     sensorCar.drive_stop_sensor()
 
 def setIRCalibration():
+
     #Initialle Kalibrierung der Infrarot Sensoren
     ir = bk.Infrared()
     ir.cali_references()
