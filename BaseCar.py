@@ -519,7 +519,6 @@ while doExit==False:
     elif TopMenu == 90: #Exit
         doExit = True
     elif TopMenu == 100: #Hilfe
-        print(os.path.dirname(os.path.realpath(__file__)))
         localDir = os.path.dirname(os.path.realpath(__file__))
         webbrowser.open(localDir + "/html/BaseCar.py.html")
     else:
