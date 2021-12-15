@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="basisklassen module" href="basisklassen.html" />
-    <link rel="prev" title="C2C-SensorCar" href="modules.html" />
+    <link rel="prev" title="Einleitung" href="intro.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -36,51 +36,120 @@
             
   <div class="section" id="module-BaseCar">
 <span id="basecar-module"></span><h1>BaseCar module<a class="headerlink" href="#module-BaseCar" title="Permalink to this headline">¶</a></h1>
+<p>Autonomens Fahren mit Sunfounder PiCar-S</p>
 <dl class="class">
 <dt id="BaseCar.BaseCar">
 <em class="property">class </em><code class="descclassname">BaseCar.</code><code class="descname">BaseCar</code><span class="sig-paren">(</span><em>turning_offset</em>, <em>forward_A</em>, <em>forward_B</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Diese Klasse ruft die Klassen und Methoden der Datei basisklassen.py aufund behinhaltet folgende Methoden :
-- set_steering_angle(int): Setzt Lenkwinkel
-- get_steering_angle(): Rückgabe des aktuellen Lenkwinkels
-- drive_forward(int): Vorwärtsfahren mit übergebener Geschwindigkeit
-- drive_backward(int): Rückwärtsfahren mit übergebener Geschwindigkeit
-- drive_stop(): Anhalten
-- get_speed(): Rückgabe der aktuellen Geschwindigkeit
-- get_direction(): Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, -1 Rückwärts)</p>
+<dd><blockquote>
+<div>Diese Klasse ruft die Klassen und Methoden der Datei basisklassen.py auf. Zusätzlich wird im init der Antrieb abgeschaltet und die Lenkung auf die Nullposition gefahren.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>turning_offset</strong> (<em>Integer</em>) – setzt den Lenkwinkeloffset in der _INIT_</li>
+<li><strong>forward_A</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeugspezifisch für das erste Rad. Die Umschaltung laeuft mit dem Wechsel 0 zu 1.</li>
+<li><strong>forward_B</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeugspezifisch für das erste Rad. Die Umschaltung laeuft mit dem Wechsel 0 zu 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="BaseCar.BaseCar.drive_backward">
 <code class="descname">drive_backward</code><span class="sig-paren">(</span><em>speed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_backward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Rückwärtsfahren mit übergebener Geschwindigkeit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em><em>, </em><em>optional</em>) – [Zielgeschwindigkeit], defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.drive_forward">
 <code class="descname">drive_forward</code><span class="sig-paren">(</span><em>speed=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Vorwärtsfahren mit übergebener Geschwindigkeit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em><em>, </em><em>optional</em>) – Zielgeschwindigkeit, defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.drive_stop">
 <code class="descname">drive_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.drive_stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Stoppt die Fahrt</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.get_direction">
 <code class="descname">get_direction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_direction" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Rückgabe der aktuellen Fahrtrichtung (1: vorwärts, 0: Stillstand, -1 Rückwärts)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Fahrtrichtung</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.get_speed">
 <code class="descname">get_speed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_speed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Rückgabe der aktuellen Geschwindigkeit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">aktuelle Geschwindikeit</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.get_steering_angle">
 <code class="descname">get_steering_angle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.get_steering_angle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Rückgabe des aktuellen Lenkwinkels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Lenkwinkel in 0.5 Grad</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.BaseCar.set_steering_angle">
 <code class="descname">set_steering_angle</code><span class="sig-paren">(</span><em>turn_angle=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.BaseCar.set_steering_angle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Setzt den Lenkwinkel</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>turn_angle</strong> (<em>int</em><em>, </em><em>optional</em>) – setzen von dem Ziellenkwinkel defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -95,102 +164,214 @@ und legt mit dem angepassten Inhalt eine config.py an.</p>
 <dt id="BaseCar.SensorCar">
 <em class="property">class </em><code class="descclassname">BaseCar.</code><code class="descname">SensorCar</code><span class="sig-paren">(</span><em>turning_offset</em>, <em>forward_A</em>, <em>forward_B</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#BaseCar.BaseCar" title="BaseCar.BaseCar"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCar.BaseCar</span></code></a></p>
-<p>Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
-Zusätzlich hat die Klasse die Methoden:
-- check_Obstacle: Mittels Ultraschallsensor Hindernisse erkennen und anzuhalten.
-- write_logfile: Zeitstempel, Geschwindigkeit, Fahrtrichtung, Lenkwinkel und Abstand Hindernis in CSV-Datei speichern
-- write_logfile_new_run:</p>
+<blockquote>
+<div>Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>turning_offset</strong> (<em>Integer</em>) – setzt den Linkwinkeloffset in der _INIT_</li>
+<li><strong>forward_A</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.</li>
+<li><strong>forward_B</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="BaseCar.SensorCar.check_obstacle">
 <code class="descname">check_obstacle</code><span class="sig-paren">(</span><em>distance_limit=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.check_obstacle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Mittels Ultraschallsensor Hindernisse erkennen und anzuhalten.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>distance_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – setzt die Distance zum anhalten, defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.drive_backward_sensor">
 <code class="descname">drive_backward_sensor</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_backward_sensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Funktion von der Class BaseCar, Rückwärtsfahren mit übergebener Geschwindigkeit und logt dies</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em><em>, </em><em>optional</em>) – [Zielgeschwindigkeit], defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.drive_forward_sensor">
 <code class="descname">drive_forward_sensor</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_forward_sensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Funktion von der Class BaseCar, Vorwärtsfahren mit übergebener Geschwindigkeit und logt dies</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em><em>, </em><em>optional</em>) – Zielgeschwindigkeit, defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.drive_stop_sensor">
 <code class="descname">drive_stop_sensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.drive_stop_sensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Funktion von der Class BaseCar, Stoppt die Fahrt und logt dies</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.get_distance_uss">
 <code class="descname">get_distance_uss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_distance_uss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Liest den aktuellen Abstand zum Hinderniss aus und liefert diesen zurück.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Distance zum Hinderniss</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.get_ir_analog">
 <code class="descname">get_ir_analog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_analog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Erfassung analoger Daten vom Infrarotsensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Analoge Werte von dem Infrarotsensoren</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Liste von 5 int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.get_ir_digital">
 <code class="descname">get_ir_digital</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_digital" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Erfassung digitaler Daten vom Infrarotsensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Digitale Werte von dem Infrarotsensoren</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Liste von 5 int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.set_steering_angle_sensor">
 <code class="descname">set_steering_angle_sensor</code><span class="sig-paren">(</span><em>turn_angle</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.set_steering_angle_sensor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Funktion von der Class BaseCar, Setzt den Lenkwinkel und logt den zusätzlich</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>turn_angle</strong> (<em>int</em><em>, </em><em>optional</em>) – setzen von dem Ziellenkwinkel defaults to 0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.write_logfile">
 <code class="descname">write_logfile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.write_logfile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Speichert die Werte für Zeitstempel, Geschwindigkeit, Fahrtrichtung, Lenkwinkel, Abstand Hindernis, 
+Analoge und Digitale Werte von den Intrarotsensoren in eine CSV-Datei</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.write_logfile_new_run">
 <code class="descname">write_logfile_new_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.write_logfile_new_run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Schreibt das aktuelle Datum in die Logdatei.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour1">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><ol class="arabic simple">
+<li>Das Auto fährt 3 Sekunden vorwärts 2. Das Auto wartet 1 Sekunde 3. Das Auto fährt 3 Sekunden rückwärts</li>
+</ol>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour2">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>1. Das Auto fährt 1 Sekunden vorwärts 2. Das Auto fährt 8 Sekunden mit vollem Lenkeinschlag im Uhrzeigersinn vorwärts 3. Das Auto wartet 1 Sekunde
+4. Das Auto fährt 8 Sekunden mit vollem Lenkeinschlag im Uhrzeigersinn rückwärts 5. Das Auto fährt 1 Sekunden rückwärts</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour3">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><ol class="arabic simple">
+<li>Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft</li>
+</ol>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour4">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour4</code><span class="sig-paren">(</span><em>anzahl_hindernisse=3</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div><ol class="arabic simple">
+<li>Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft 2. Das Auto weicht ingesammt 3 x einem Hindernis aus</li>
+</ol>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>anzahl_hindernisse</strong> (<em>int</em>) – Anzahl der zu erkennenden Hindernisse im Parcour. Nach dieser Anzahl wird die Fahrt gestoppt.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour5">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour5</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><ol class="arabic simple">
+<li>Das Auto fährt der markierten Linie entlang 2. Das Auto stoppt wenn die markierte Linie endet</li>
+</ol>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour6">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour6</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour6" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><ol class="arabic simple">
+<li>Das Auto fährt einer markierten Linie entlang 2. Das Auto stoppt wenn die markierte Linie endet oder auf ein Hindernis trifft</li>
+</ol>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.setIRCalibration">
 <code class="descclassname">BaseCar.</code><code class="descname">setIRCalibration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.setIRCalibration" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initialle Kalibrierung der Infrarot Sensoren</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="BaseCar.setIRCalibrationNew">
 <code class="descclassname">BaseCar.</code><code class="descname">setIRCalibrationNew</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.setIRCalibrationNew" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Neue Kalibrierung der Infrarot Sensoren zur Laufzeit</p>
+</dd></dl>
 
 </div>
 
@@ -214,6 +395,7 @@ Zusätzlich hat die Klasse die Methoden:
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">C2C-SensorCar</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Einleitung</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">BaseCar module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basisklassen.html">basisklassen module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
@@ -226,7 +408,7 @@ Zusätzlich hat die Klasse die Methoden:
 <ul>
   <li><a href="BaseCar.py.html">Documentation overview</a><ul>
   <li><a href="modules.html">C2C-SensorCar</a><ul>
-      <li>Previous: <a href="modules.html" title="previous chapter">C2C-SensorCar</a></li>
+      <li>Previous: <a href="intro.html" title="previous chapter">Einleitung</a></li>
       <li>Next: <a href="basisklassen.html" title="next chapter">basisklassen module</a></li>
   </ul></li>
   </ul></li>
