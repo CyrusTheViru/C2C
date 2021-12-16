@@ -23,13 +23,51 @@ Funktionen
 - Hinderniserkennung mittels Ultraschallmodul
 - Bahnverfolgung mittels Infrarotsensorik
 
+Hardware
+********
+- RaspberryPi
+- Modelauto : Bausatz Sunfounder PiCar‑S wird nach der beigelegten Anleitung aufgebaut und verdrahtet
+
+
+Installation der Hardware Spezifischen Bibliotheken
+***************************************************
+- Console oeffnen
+    - cd /home/pi/
+    - git clone --recursive https://github.com/sunfounder/SunFounder_PiCar-S.git
+    - cd ~/SunFounder_PiCar-S/
+    - sudo ./install_dependencies
+die Durchfuehrung zur Einstellungen für Lenkeinschlag und ähnlichen sind zum gegeben Punkt der Aufbauanleitung zu Entnehmen
+
+Benötigte installierte Softwaremodule auf dem RaspberryPi:
+**********************************************************
+- Phyton 3 (Version: 3.7.3)
+
+ erforderliche Pakete für Python3, auszuführen mit den Befehlen:
+- pip3 install jupyter-dash
+- pip install jupyter-dash
+- pip install yupiterlab
+- pip3 install --upgrade ipython
+- pip3 install --upgrade numpy
+- sudo apt-get install libatlas-base-dev
+- pip3 install pandas
+
+
+Voraussetzungen / Einstellungen zum Betrieb des PiCars auf dem RaspberryPi
+**************************************************************************
+ - Console oeffnen
+    sudo raspi-config im Terminal starten, unter Advanced options den Punkt GL Driver aktivieren und dann neu starten
+ - Wählen Sie im Menu des Raspberry Pi den Punkt “Einstellungen” und klicken auf den Reiter “Schnittstellen”. Aktivieren die Punkte “Kamera”, “SSH” und “I2C”.
+
+
+Voraussetzungen zur Kommunikation mit dem RaspberryPi
+*****************************************************
+Es wird eine Remoteverbindung mit dem RaspberryPi vorausgesetzt.
+
+
 Voraussetzungen zum Betrieb des PiCars
 **************************************
 - Softwaremodule BaseCar.py & basisklassen.py
 - Akkubetrieb des Fahrzeugs
-
-Benötigte installierte Softwaremodule auf dem RaspberryPi:
-**********************************************************
 
 Betrieb der Software
 ********************
