@@ -126,10 +126,10 @@ class SensorCar(BaseCar):
         import config as conf
         self._ir = bk.Infrared(references = conf.ir_references)
         
-        if os.path.isfile("Log_SensorCar_USS_IR.csv") == True:
+        if os.path.isfile("Log_SensorCar.csv") == True:
             print("Das Log-File für den Ultraschallsensor existiert bereits!")
         else:
-            writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "w", newline=''))
+            writer = csv.writer(open("Log_SensorCar.csv", "w", newline=''))
             writer.writerow(["Zeit", "Geschwindigkeit", "Fahrtrichtung", "Lenkwinkel", "Abstand_Hindernis", "Infrarot_Analogdaten", "Infrarot_Digitalwerte"])
 
     def set_steering_angle_sensor(self, turn_angle):
@@ -235,14 +235,14 @@ class SensorCar(BaseCar):
         ir_data = np.array(self.get_ir_analog())
         ir_digital = self.get_ir_digital()
 
-        writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "a", newline=''))
+        writer = csv.writer(open("Log_SensorCar.csv", "a", newline=''))
         writer.writerow([timestamp, speed, direction, steering_angle, distance, ir_data, ir_digital])
 
     def write_logfile_new_run(self):
         """ Schreibt das aktuelle Datum in die Logdatei.
         """
         timestamp = datetime.datetime.now().strftime("%d.%m.%Y")
-        writer = csv.writer(open("Log_SensorCar_USS_IR.csv", "a", newline=''))
+        writer = csv.writer(open("Log_SensorCar.csv", "a", newline=''))
         writer.writerow([timestamp, "###", "###", "###", "###", "###"]) 
 
 """ Fahrtrecken 1 - 6 """
@@ -457,6 +457,10 @@ def FormatChanger():
         filename = "config.py"
         # Öfnnen des File mit Schreibrechten
         myfile = open(filename, 'w')
+        myfile.write('# coding=utf-8')
+        myfile.write('\n')
+        myfile.write('"""Diese Datei ist wichtig für die Fahrzeugspezifischen Einstellungen"""')
+        myfile.write('\n')
         # Schreibt die eingelesen Parameter
         myfile.write(readline[2])
         # Schreibt Leerzeile
