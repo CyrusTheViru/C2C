@@ -1,7 +1,6 @@
 # coding=utf-8
 """ Autonomens Fahren mit Sunfounder PiCar-S """
 
-
 from os import abort
 import basisklassen as bk
 import time
@@ -92,6 +91,7 @@ class BaseCar:
         time.sleep(.1)
         self._speed = 0
         self._direction = 0
+        self.set_steering_angle(90)
 
     def get_speed(self):
         """Rückgabe der aktuellen Geschwindigkeit
@@ -212,14 +212,97 @@ class SensorCar(BaseCar):
         self._irAnalog = self._ir.read_analog()
         return self._irAnalog
 
-    def get_ir_digital(self):
+    def get_ir_digital(self, misread_limit = 0):
         """Erfassung digitaler Daten vom Infrarotsensor
 
         :return: Digitale Werte von dem Infrarotsensoren
-        :rtype: Liste von 5 int
+        :rtype: Liste von 5 bool
+        :param misread_limit: Anzahl von Versuchen, den Sensor auszulesen bei vermeintliche Fehllesung
+        :type misread_limit: int
         """
-        self._irDigital = self._ir.read_digital()
+        sensor_misread = 0
+
+        while True:
+            #print(sensor_misread)
+            self._irDigital = self._ir.read_digital()
+
+            if sensor_misread > misread_limit:
+                break
+            elif self._irDigital == ([0, 0, 0, 0, 0]):
+                sensor_misread =  sensor_misread + 1
+            else:
+                break
+                
         return self._irDigital
+
+    def follow_line(self, ir_value, speed = 30):
+        """Einstellen des Lenkwinkels um Linie zu folgen
+
+        :param ir_value: Digitale Werte des Infrarotsensors
+        :type ir_value: Liste von 5 bool
+        :param speed: Geschwindigkeit auf der Geraden
+        :type speed: int
+        """
+        if ir_value == ([0, 0, 1, 0, 0]):
+            self.set_steering_angle_sensor(90)
+            self.drive_forward_sensor(speed)
+        elif ir_value == ([0, 1, 1, 1, 0]):
+            self.set_steering_angle_sensor(90)
+            self.drive_forward_sensor(speed)
+        elif ir_value == ([0, 0, 1, 1, 0]):
+            self.set_steering_angle_sensor(100)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 0, 1, 1, 1]):
+            self.set_steering_angle_sensor(100)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 0, 0, 1, 0]):
+            self.set_steering_angle_sensor(110)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 0, 0, 1, 1]):
+            self.set_steering_angle_sensor(120)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 0, 0, 0, 1]):
+            self.set_steering_angle_sensor(130)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 1, 1, 0, 0]):
+            self.set_steering_angle_sensor(80)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([1, 1, 1, 0, 0]):
+            self.set_steering_angle_sensor(80)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([0, 1, 0, 0, 0]):
+            self.set_steering_angle_sensor(70)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([1, 1, 0, 0, 0]):
+            self.set_steering_angle_sensor(60)
+            self.drive_forward_sensor(30)
+        elif ir_value == ([1, 0, 0, 0, 0]):
+            self.set_steering_angle_sensor(50)
+            self.drive_forward_sensor(30)
+        else:
+            print("IR-Sensorwerte nicht plausibel!")
+
+    def find_line_again(self, ir_value_last_try = ([0, 0, 0, 0, 0])):
+        """Kurze Suchfahrt, wenn Kurvenradius zu eng oder die Geschwindigkeit zu hoch ist.
+        Die uebergebenen Werte müssen vorher über Hilfsvariable zwischengespeichert werden.
+
+        :param ir_value_last_try: Digitale Werte des Infrarotsensors bevor die Linie verlassen wurde.
+        :type ir_value_last_try: Liste von 5 bool
+        """
+        if ir_value_last_try == ([0, 0, 0, 0, 1]) or ir_value_last_try == ([0, 0, 0, 1, 1]) or ir_value_last_try == ([0, 0, 0, 1, 0]) or ir_value_last_try == ([0, 0, 1, 1, 1]):
+            self.drive_stop_sensor()
+            self.set_steering_angle_sensor(50)
+            self.drive_backward_sensor(30)
+            time.sleep(.5)
+            self.drive_stop_sensor()
+        elif ir_value_last_try == ([1, 0, 0, 0, 0]) or ir_value_last_try == ([1, 1, 0, 0, 0]) or ir_value_last_try == ([0, 1, 0, 0, 0]) or ir_value_last_try == ([1, 1, 1, 0, 0]):
+            self.drive_stop_sensor()
+            self.set_steering_angle_sensor(130)
+            self.drive_backward_sensor(30)
+            time.sleep(.5)
+            self.drive_stop_sensor()
+        else:
+            print("Ende der Linie erreicht!")
 
     def write_logfile(self):
         """
@@ -356,30 +439,25 @@ def func_fahrparcour5():
     print("Das Auto fährt an der Linie entlang")
     sensorCar.set_steering_angle_sensor(90)
     sensorCar.drive_forward_sensor(30)
-    #sensorCar.check_obstacle(10)
     #sensorCar.write_logfile_new_run()
-    
-    while(sum(sensorCar.get_ir_digital())!=0):
-        if sensorCar.get_ir_digital() == ([0, 0, 1, 0, 0]):
-            sensorCar.set_steering_angle_sensor(90)
-        elif sensorCar.get_ir_digital() == ([0, 0, 1, 1, 0]):
-            sensorCar.set_steering_angle_sensor(100)
-        elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 0]):
-            sensorCar.set_steering_angle_sensor(110)
-        elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 1]):
-            sensorCar.set_steering_angle_sensor(120)
-        elif sensorCar.get_ir_digital() == ([0, 0, 0, 0, 1]):
-            sensorCar.set_steering_angle_sensor(130)
-        elif sensorCar.get_ir_digital() == ([0, 1, 1, 0, 0]):
-            sensorCar.set_steering_angle_sensor(80)
-        elif sensorCar.get_ir_digital() == ([0, 1, 0, 0, 0]):
-            sensorCar.set_steering_angle_sensor(70)
-        elif sensorCar.get_ir_digital() == ([1, 1, 0, 0, 0]):
-            sensorCar.set_steering_angle_sensor(60)
-        elif sensorCar.get_ir_digital() == ([1, 0, 0, 0, 0]):
-            sensorCar.set_steering_angle_sensor(50)
-        else: break
-        time.sleep(0.1)
+
+    ir_value_last_try = ([0, 0, 0, 0, 0])
+
+    while True:
+        #print(ir_value)
+        
+        ir_value = sensorCar.get_ir_digital(5)
+
+        if ir_value == ([0, 0, 0, 0, 0]):
+            if ir_value_last_try == ([0, 0, 0, 0, 0]):
+                break
+            else:
+                sensorCar.find_line_again(ir_value_last_try)
+        else:
+            sensorCar.follow_line(ir_value, 50)
+
+        ir_value_last_try = ir_value
+        
     sensorCar.drive_stop_sensor()
 
 
@@ -391,37 +469,32 @@ def func_fahrparcour6():
     print("Das Auto fährt an der Linie entlang")
     sensorCar.set_steering_angle_sensor(90)
     sensorCar.drive_forward_sensor(30)
-    #sensorCar.check_obstacle(10)
     #sensorCar.write_logfile_new_run()
-    
-    while(sum(sensorCar.get_ir_digital())!=0):
-        print(sensorCar.get_distance_uss())
-        if sensorCar.get_distance_uss() <= 0:
-            print("Keine plausiblen Ultraschallwerte. Messung wird wiederholt.")
-            continue
-        elif sensorCar.get_distance_uss() >= 20:
-            if sensorCar.get_ir_digital() == ([0, 0, 1, 0, 0]):
-                sensorCar.set_steering_angle_sensor(90)
-            elif sensorCar.get_ir_digital() == ([0, 0, 1, 1, 0]):
-                sensorCar.set_steering_angle_sensor(100)
-            elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 0]):
-                sensorCar.set_steering_angle_sensor(110)
-            elif sensorCar.get_ir_digital() == ([0, 0, 0, 1, 1]):
-                sensorCar.set_steering_angle_sensor(120)
-            elif sensorCar.get_ir_digital() == ([0, 0, 0, 0, 1]):
-                sensorCar.set_steering_angle_sensor(130)
-            elif sensorCar.get_ir_digital() == ([0, 1, 1, 0, 0]):
-                sensorCar.set_steering_angle_sensor(80)
-            elif sensorCar.get_ir_digital() == ([0, 1, 0, 0, 0]):
-                sensorCar.set_steering_angle_sensor(70)
-            elif sensorCar.get_ir_digital() == ([1, 1, 0, 0, 0]):
-                sensorCar.set_steering_angle_sensor(60)
-            elif sensorCar.get_ir_digital() == ([1, 0, 0, 0, 0]):
-                sensorCar.set_steering_angle_sensor(50)
-            else: break
-            time.sleep(0.1)
-        else: break
+
+    ir_value_last_try = ([0, 0, 0, 0, 0])
+
+    while True:
+        #print(ir_value)
+        #print(us_value)
+        
+        ir_value = sensorCar.get_ir_digital(5)
+        us_value = sensorCar.get_distance_uss()
+
+        if ir_value == ([0, 0, 0, 0, 0]):
+            if ir_value_last_try == ([0, 0, 0, 0, 0]):
+                break
+            else:
+                sensorCar.find_line_again(ir_value_last_try)
+        elif us_value >= 0 and us_value < 20:
+            break
+        else:
+            sensorCar.follow_line(ir_value, 50)
+
+        ir_value_last_try = ir_value
+
     sensorCar.drive_stop_sensor()
+
+            
 
 def setIRCalibration():
     """ Initialle Kalibrierung der Infrarot Sensoren """
