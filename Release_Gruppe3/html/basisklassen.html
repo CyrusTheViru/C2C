@@ -1,0 +1,513 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>basisklassen module &#8212; C2C_Gruppe3  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="config module" href="config.html" />
+    <link rel="prev" title="BaseCar module" href="BaseCar.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="basisklassen-module">
+<h1>basisklassen module<a class="headerlink" href="#basisklassen-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-ultrasonic-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Ultrasonic</span></code> class<a class="headerlink" href="#the-ultrasonic-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Ultrasonic">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Ultrasonic</code><span class="sig-paren">(</span><em>preparation_time=0.01</em>, <em>impuls_length=1e-05</em>, <em>timeout=0.05</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Ultrasonic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse für das SunFounder Ultraschall-Module</p>
+<dl class="docutils">
+<dt>Argumente des Konstruktors:</dt>
+<dd><dl class="first docutils">
+<dt>preparation_time <span class="classifier-delimiter">:</span> <span class="classifier">Float</span></dt>
+<dd>Wartezeit in Millisekunden vor Aussenden des Ultraschall-Impulses</dd>
+<dt>impuls_length <span class="classifier-delimiter">:</span> <span class="classifier">Float</span></dt>
+<dd>Länge des Ultraschall-Impulses</dd>
+</dl>
+<p class="last">timeout : Wartezeit bis zum Abruch der Messung</p>
+</dd>
+<dt>Methodes:</dt>
+<dd><dl class="first last docutils">
+<dt>distance():</dt>
+<dd><dl class="first last docutils">
+<dt>return - Distanz in cm für eine Einzelmessung </dt>
+<dd><ul class="first last simple">
+<li>-1,-2,-3,-4 für Fehler</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>stop():</dt>
+<dd>setzt GPIO (channel) des Raspberry auf False und beendet eventuell 
+auftretende Geräusche des Sensor (Abschalten)</dd>
+</dl>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="basisklassen.Ultrasonic.CHANNEL">
+<code class="descname">CHANNEL</code><em class="property"> = 20</em><a class="headerlink" href="#basisklassen.Ultrasonic.CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Ultrasonic.distance">
+<code class="descname">distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Ultrasonic.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns distance in cm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Ultrasonic.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Ultrasonic.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop sensor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Ultrasonic.test">
+<code class="descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Ultrasonic.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>prints 10 measurements in 5 seconds, negative numbers for errors which can appear for large distances</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-infrared-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Infrared</span></code> class<a class="headerlink" href="#the-infrared-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Infrared">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Infrared</code><span class="sig-paren">(</span><em>references=[300, 300, 300, 300, 300]</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse für das SunFounder Infrarot-Modul</p>
+<dl class="docutils">
+<dt>Argumente des Konstruktors:</dt>
+<dd>references : Liste von Float</dd>
+<dt>Methodes:</dt>
+<dd><dl class="first docutils">
+<dt>read_analog(self):</dt>
+<dd>return - Liste der Messung der einzelnen Sensoren</dd>
+<dt>read_digital():</dt>
+<dd><dl class="first last docutils">
+<dt>return - Liste der digitalisierten Messung der Sensoren unter Verwendung </dt>
+<dd>der Referenz als Schwellwert</dd>
+</dl>
+</dd>
+<dt>get_average(mount=10): </dt>
+<dd>return - Liste der Messung als Mittelwert von ‘mount’ Einzelmessungen</dd>
+</dl>
+<p class="last">set_references(ref): Setzen der Referenz ‘ref’ als Liste von Float
+cali_references(): Aufnahme der Referenz</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="basisklassen.Infrared.ADDRESS">
+<code class="descname">ADDRESS</code><em class="property"> = 17</em><a class="headerlink" href="#basisklassen.Infrared.ADDRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.cali_references">
+<code class="descname">cali_references</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.cali_references" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.get_average">
+<code class="descname">get_average</code><span class="sig-paren">(</span><em>mount=10</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.get_average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.read_analog">
+<code class="descname">read_analog</code><span class="sig-paren">(</span><em>trys=5</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.read_analog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.read_digital">
+<code class="descname">read_digital</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.read_digital" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.set_references">
+<code class="descname">set_references</code><span class="sig-paren">(</span><em>ref</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.set_references" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Infrared.test">
+<code class="descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Infrared.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>prints 10 measurements in 5 seconds</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-front-wheels-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Front_Wheels</span></code> class<a class="headerlink" href="#the-front-wheels-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Front_Wheels">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Front_Wheels</code><span class="sig-paren">(</span><em>turning_offset=0</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Front_Wheels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse für die SunFounder Lenkung der Vorderräder. Sie erlaubt maximale Lenkungswinkel von 45°</p>
+<dl class="docutils">
+<dt>Argumente des Konstruktors:</dt>
+<dd>turning_offset : Int</dd>
+<dt>Methodes:</dt>
+<dd><dl class="first last docutils">
+<dt>turn(angle): Setzt Lenkungswinkel ‘angle’ als Int im Interval von 45-135° (90° geradeaus)</dt>
+<dd>return - gesetzter Lenkwinkel</dd>
+<dt>get_angles():</dt>
+<dd>return - Dictionary der maximalen Lenkungswinkel</dd>
+</dl>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="basisklassen.Front_Wheels.BUS_NUMBER">
+<code class="descname">BUS_NUMBER</code><em class="property"> = 1</em><a class="headerlink" href="#basisklassen.Front_Wheels.BUS_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Front_Wheels.FRONT_WHEEL_CHANNEL">
+<code class="descname">FRONT_WHEEL_CHANNEL</code><em class="property"> = 0</em><a class="headerlink" href="#basisklassen.Front_Wheels.FRONT_WHEEL_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Front_Wheels.MAX_TURNING_ANGLE">
+<code class="descname">MAX_TURNING_ANGLE</code><em class="property"> = 45</em><a class="headerlink" href="#basisklassen.Front_Wheels.MAX_TURNING_ANGLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Front_Wheels.get_angles">
+<code class="descname">get_angles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Front_Wheels.get_angles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Front_Wheels.test">
+<code class="descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Front_Wheels.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>steering demo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Front_Wheels.turn">
+<code class="descname">turn</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Front_Wheels.turn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the front wheels to the giving angle</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-back-wheels-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Back_Wheels</span></code> class<a class="headerlink" href="#the-back-wheels-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Back_Wheels">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Back_Wheels</code><span class="sig-paren">(</span><em>forward_A=0</em>, <em>forward_B=0</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Back_Wheels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Klasse für den SunFounder Hinterradantrieb.</p>
+<dl class="docutils">
+<dt>Argumente des Konstruktors:</dt>
+<dd>forward_A: 0,1 (Konfiguration der Drehrichtung eines Motors)
+forward_B: 0,1 (Konfiguration der Drehrichtung des anderen Motors)</dd>
+<dt>Methodes:</dt>
+<dd><dl class="first docutils">
+<dt>speed: setter/getter für Geschwindigkeit als Int im Interval 0-100</dt>
+<dd>Verwendung als getter: Int=BW.speed
+Verwendung als setter: BW.speed=Int</dd>
+</dl>
+<p class="last">forward():  Setzt Fahrmodus auf vorwärts
+backward(): setzt Fahrmodus auf rückwärts
+stop():     Setzen der Geschwindigkeit auf 0</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.BUS_NUMBER">
+<code class="descname">BUS_NUMBER</code><em class="property"> = 1</em><a class="headerlink" href="#basisklassen.Back_Wheels.BUS_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.MOTOR_A">
+<code class="descname">MOTOR_A</code><em class="property"> = 17</em><a class="headerlink" href="#basisklassen.Back_Wheels.MOTOR_A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.MOTOR_B">
+<code class="descname">MOTOR_B</code><em class="property"> = 27</em><a class="headerlink" href="#basisklassen.Back_Wheels.MOTOR_B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.PWM_A">
+<code class="descname">PWM_A</code><em class="property"> = 4</em><a class="headerlink" href="#basisklassen.Back_Wheels.PWM_A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.PWM_B">
+<code class="descname">PWM_B</code><em class="property"> = 5</em><a class="headerlink" href="#basisklassen.Back_Wheels.PWM_B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Back_Wheels.backward">
+<code class="descname">backward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Back_Wheels.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move both wheels backward</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Back_Wheels.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Back_Wheels.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move both wheels forward</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Back_Wheels.speed">
+<code class="descname">speed</code><a class="headerlink" href="#basisklassen.Back_Wheels.speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Back_Wheels.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Back_Wheels.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop both wheels</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Back_Wheels.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>t=1</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Back_Wheels.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-servo-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Servo</span></code> class<a class="headerlink" href="#the-servo-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Servo">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Servo</code><span class="sig-paren">(</span><em>channel</em>, <em>offset=0</em>, <em>lock=True</em>, <em>bus_number=1</em>, <em>address=64</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Servo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Servo driver class</p>
+<dl class="attribute">
+<dt id="basisklassen.Servo.debug">
+<code class="descname">debug</code><a class="headerlink" href="#basisklassen.Servo.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Servo.frequency">
+<code class="descname">frequency</code><a class="headerlink" href="#basisklassen.Servo.frequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Servo.offset">
+<code class="descname">offset</code><a class="headerlink" href="#basisklassen.Servo.offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Servo.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Servo.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Servo.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Servo.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the servo with giving angle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-motor-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Motor</span></code> class<a class="headerlink" href="#the-motor-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.Motor">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">Motor</code><span class="sig-paren">(</span><em>direction_channel</em>, <em>pwm=None</em>, <em>offset=True</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Motor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Motor driver class
+Set direction_channel to the GPIO channel which connect to MA, 
+Set motor_B to the GPIO channel which connect to MB,
+Both GPIO channel use BCM numbering;
+Set pwm_channel to the PWM channel which connect to PWMA,
+Set pwm_B to the PWM channel which connect to PWMB;
+PWM channel using PCA9685, Set pwm_address to your address, if is not 0x40
+Set debug to True to print out debug informations.</p>
+<dl class="method">
+<dt id="basisklassen.Motor.backward">
+<code class="descname">backward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Motor.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the motor direction to backward</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Motor.debug">
+<code class="descname">debug</code><a class="headerlink" href="#basisklassen.Motor.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Motor.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Motor.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the motor direction to forward</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Motor.offset">
+<code class="descname">offset</code><a class="headerlink" href="#basisklassen.Motor.offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Motor.pwm">
+<code class="descname">pwm</code><a class="headerlink" href="#basisklassen.Motor.pwm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.Motor.speed">
+<code class="descname">speed</code><a class="headerlink" href="#basisklassen.Motor.speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.Motor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.Motor.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the motor by giving a 0 speed</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-pwm-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">PWM</span></code> class<a class="headerlink" href="#the-pwm-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="basisklassen.PWM">
+<em class="property">class </em><code class="descclassname">basisklassen.</code><code class="descname">PWM</code><span class="sig-paren">(</span><em>bus_number=1</em>, <em>address=64</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.PWM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A PWM control class for PCA9685.</p>
+<dl class="attribute">
+<dt id="basisklassen.PWM.debug">
+<code class="descname">debug</code><a class="headerlink" href="#basisklassen.PWM.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="basisklassen.PWM.frequency">
+<code class="descname">frequency</code><a class="headerlink" href="#basisklassen.PWM.frequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.PWM.map">
+<code class="descname">map</code><span class="sig-paren">(</span><em>x</em>, <em>in_min</em>, <em>in_max</em>, <em>out_min</em>, <em>out_max</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.PWM.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>To map the value from arange to another</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.PWM.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.PWM.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init the class with bus_number and address</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.PWM.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>channel</em>, <em>on</em>, <em>off</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.PWM.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set on and off value on specific channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="basisklassen.PWM.write_all_value">
+<code class="descname">write_all_value</code><span class="sig-paren">(</span><em>on</em>, <em>off</em><span class="sig-paren">)</span><a class="headerlink" href="#basisklassen.PWM.write_all_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set on and off value on all channel</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="BaseCar.py.html">C2C_Gruppe3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">C2C-SensorCar</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Einleitung</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BaseCar.html">BaseCar module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">basisklassen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="BaseCar.py.html">Documentation overview</a><ul>
+  <li><a href="modules.html">C2C-SensorCar</a><ul>
+      <li>Previous: <a href="BaseCar.html" title="previous chapter">BaseCar module</a></li>
+      <li>Next: <a href="config.html" title="next chapter">config module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Kev.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/basisklassen.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
