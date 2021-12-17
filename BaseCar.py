@@ -112,7 +112,7 @@ class BaseCar:
 ### Unterklasse
 class SensorCar(BaseCar):
     """
-     Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
+    Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
     :param turning_offset: setzt den Linkwinkeloffset in der _INIT_
     :type turning_offset: Integer
     :param forward_A: setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.
@@ -403,7 +403,7 @@ def func_fahrparcour3():
 
 def func_fahrparcour4(anzahl_hindernisse = 3):
     """  
-     1. Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft 2. Das Auto weicht ingesammt 3 x einem Hindernis aus 
+    1. Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft 2. Das Auto weicht ingesammt 3 x einem Hindernis aus 
     :param anzahl_hindernisse: Anzahl der zu erkennenden Hindernisse im Parcour. Nach dieser Anzahl wird die Fahrt gestoppt.
     :type anzahl_hindernisse: int
     """
