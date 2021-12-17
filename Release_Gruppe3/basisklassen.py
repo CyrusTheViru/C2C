@@ -35,9 +35,9 @@ class Ultrasonic(object):
                    - -1,-2,-3,-4 für Fehler
         stop():
             setzt GPIO (channel) des Raspberry auf False und beendet eventuell 
-            auftretende Geräusche des Sensor (Abschalten) 
+            auftretende Geräusche des Sensor (Abschalten)
+    
     """
-
     CHANNEL = 20   # GPIO entsprechend des Sunfounder Setups
 
     def __init__(self, preparation_time=0.01, impuls_length=0.00001, timeout=0.05):
@@ -164,7 +164,6 @@ class Infrared(object):
 
     def set_references(self, ref):
         self._references = ref
-        print("ref gesetzt")
 
     def cali_references(self):
         input('Place on background:')
@@ -178,7 +177,7 @@ class Infrared(object):
 
     def test(self):
         """prints 10 measurements in 5 seconds"""
-        for i in range(100):
+        for i in range(10):
             data = self.read_analog()
             print(i, ':', data)
             time.sleep(.5)
@@ -227,14 +226,7 @@ class Front_Wheels(object):
         get_angles():
             return - Dictionary der maximalen Lenkungswinkel
     """
-    """
-    Eine Klasse für die SunFounder Lenkung der Vorderräder. Sie erlaubt maximale Lenkungswinkel von 45°
 
-    :param turning_offset: Ist der Fahrzeugspezifische Lenkoffset für die optimale Nullstellung, defaults to 0
-    :type turning_offset: int, optinal
-    :return: test
-    :rtype: int
-    """
     FRONT_WHEEL_CHANNEL = 0  # from Sunfounder
     MAX_TURNING_ANGLE = 45  # in order to avoid damage
     BUS_NUMBER = 1          # from Sunfounder
@@ -248,11 +240,6 @@ class Front_Wheels(object):
         self._turning_max(self.MAX_TURNING_ANGLE)
 
     def _turning_max(self, angle):
-        """[summary]
-
-        :param angle: [description]
-        :type angle: [type]
-        """
         self._turning_max = angle
         self._min_angle = self._straight_angle - angle
         self._max_angle = self._straight_angle + angle
