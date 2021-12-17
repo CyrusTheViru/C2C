@@ -54,15 +54,70 @@ nachvollziehen kann</p>
 <li>Bahnverfolgung mittels Infrarotsensorik</li>
 </ul>
 </div>
+<div class="section" id="hardware">
+<h2>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>RaspberryPi</li>
+<li>Modelauto : Bausatz Sunfounder PiCar‑S wird nach der beigelegten Anleitung aufgebaut und verdrahtet</li>
+</ul>
+</div>
+<div class="section" id="installation-der-hardware-spezifischen-bibliotheken">
+<h2>Installation der Hardware Spezifischen Bibliotheken<a class="headerlink" href="#installation-der-hardware-spezifischen-bibliotheken" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Console oeffnen</dt>
+<dd><ul class="first last">
+<li>cd /home/pi/</li>
+<li>git clone –recursive <a class="reference external" href="https://github.com/sunfounder/SunFounder_PiCar-S.git">https://github.com/sunfounder/SunFounder_PiCar-S.git</a></li>
+<li>cd ~/SunFounder_PiCar-S/</li>
+<li>sudo ./install_dependencies</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>die Durchfuehrung zur Einstellungen für Lenkeinschlag und ähnlichen sind zum gegeben Punkt der Aufbauanleitung zu Entnehmen</p>
+</div>
+<div class="section" id="benotigte-installierte-softwaremodule-auf-dem-raspberrypi">
+<h2>Benötigte installierte Softwaremodule auf dem RaspberryPi:<a class="headerlink" href="#benotigte-installierte-softwaremodule-auf-dem-raspberrypi" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Phyton 3 (Version: 3.7.3)</li>
+</ul>
+<blockquote>
+<div>erforderliche Pakete für Python3, auszuführen mit den Befehlen:</div></blockquote>
+<ul class="simple">
+<li>pip3 install jupyter-dash</li>
+<li>pip install jupyter-dash</li>
+<li>pip install yupiterlab</li>
+<li>pip3 install –upgrade ipython</li>
+<li>pip3 install –upgrade numpy</li>
+<li>sudo apt-get install libatlas-base-dev</li>
+<li>pip3 install pandas</li>
+</ul>
+</div>
+<div class="section" id="voraussetzungen-einstellungen-zum-betrieb-des-picars-auf-dem-raspberrypi">
+<h2>Voraussetzungen / Einstellungen zum Betrieb des PiCars auf dem RaspberryPi<a class="headerlink" href="#voraussetzungen-einstellungen-zum-betrieb-des-picars-auf-dem-raspberrypi" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>Console oeffnen</dt>
+<dd>sudo raspi-config im Terminal starten, unter Advanced options den Punkt GL Driver aktivieren und dann neu starten</dd>
+</dl>
+</li>
+<li>Wählen Sie im Menu des Raspberry Pi den Punkt “Einstellungen” und klicken auf den Reiter “Schnittstellen”. Aktivieren die Punkte “Kamera”, “SSH” und “I2C”.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="voraussetzungen-zur-kommunikation-mit-dem-raspberrypi">
+<h2>Voraussetzungen zur Kommunikation mit dem RaspberryPi<a class="headerlink" href="#voraussetzungen-zur-kommunikation-mit-dem-raspberrypi" title="Permalink to this headline">¶</a></h2>
+<p>Es wird eine Remoteverbindung mit dem RaspberryPi vorausgesetzt.</p>
+</div>
 <div class="section" id="voraussetzungen-zum-betrieb-des-picars">
 <h2>Voraussetzungen zum Betrieb des PiCars<a class="headerlink" href="#voraussetzungen-zum-betrieb-des-picars" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Softwaremodule BaseCar.py &amp; basisklassen.py</li>
 <li>Akkubetrieb des Fahrzeugs</li>
 </ul>
-</div>
-<div class="section" id="benotigte-installierte-softwaremodule-auf-dem-raspberrypi">
-<h2>Benötigte installierte Softwaremodule auf dem RaspberryPi:<a class="headerlink" href="#benotigte-installierte-softwaremodule-auf-dem-raspberrypi" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="betrieb-der-software">
 <h2>Betrieb der Software<a class="headerlink" href="#betrieb-der-software" title="Permalink to this headline">¶</a></h2>

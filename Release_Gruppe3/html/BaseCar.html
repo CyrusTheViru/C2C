@@ -164,21 +164,13 @@ und legt mit dem angepassten Inhalt eine config.py an.</p>
 <dt id="BaseCar.SensorCar">
 <em class="property">class </em><code class="descclassname">BaseCar.</code><code class="descname">SensorCar</code><span class="sig-paren">(</span><em>turning_offset</em>, <em>forward_A</em>, <em>forward_B</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#BaseCar.BaseCar" title="BaseCar.BaseCar"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCar.BaseCar</span></code></a></p>
-<blockquote>
-<div>Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>turning_offset</strong> (<em>Integer</em>) – setzt den Linkwinkeloffset in der _INIT_</li>
-<li><strong>forward_A</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.</li>
-<li><strong>forward_B</strong> (<em>Integer</em>) – setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<p>Diese Klasse ist eine Unterklasse der Klasse BaseCar und erbt alle Methoden der Klasse BaseCar.
+:param turning_offset: setzt den Linkwinkeloffset in der _INIT_
+:type turning_offset: Integer
+:param forward_A: setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.
+:type forward_A: Integer
+:param forward_B: setzt die Drehrichtung Fahrzeigspezifisch für das erste Rad. Die umschaltung laeuft mit dem wechsel 0 zu 1.
+:type forward_B: Integer</p>
 <dl class="method">
 <dt id="BaseCar.SensorCar.check_obstacle">
 <code class="descname">check_obstacle</code><span class="sig-paren">(</span><em>distance_limit=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.check_obstacle" title="Permalink to this definition">¶</a></dt>
@@ -228,6 +220,39 @@ und legt mit dem angepassten Inhalt eine config.py an.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="BaseCar.SensorCar.find_line_again">
+<code class="descname">find_line_again</code><span class="sig-paren">(</span><em>ir_value_last_try=[0, 0, 0, 0, 0]</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.find_line_again" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kurze Suchfahrt, wenn Kurvenradius zu eng oder die Geschwindigkeit zu hoch ist.
+Die uebergebenen Werte müssen vorher über Hilfsvariable zwischengespeichert werden.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ir_value_last_try</strong> (<em>Liste von 5 bool</em>) – Digitale Werte des Infrarotsensors bevor die Linie verlassen wurde.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="BaseCar.SensorCar.follow_line">
+<code class="descname">follow_line</code><span class="sig-paren">(</span><em>ir_value</em>, <em>speed=30</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.follow_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Einstellen des Lenkwinkels um Linie zu folgen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ir_value</strong> (<em>Liste von 5 bool</em>) – Digitale Werte des Infrarotsensors</li>
+<li><strong>speed</strong> (<em>int</em>) – Geschwindigkeit auf der Geraden</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="BaseCar.SensorCar.get_distance_uss">
 <code class="descname">get_distance_uss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_distance_uss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Liest den aktuellen Abstand zum Hinderniss aus und liefert diesen zurück.</p>
@@ -261,7 +286,7 @@ und legt mit dem angepassten Inhalt eine config.py an.</p>
 
 <dl class="method">
 <dt id="BaseCar.SensorCar.get_ir_digital">
-<code class="descname">get_ir_digital</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_digital" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_ir_digital</code><span class="sig-paren">(</span><em>misread_limit=0</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.SensorCar.get_ir_digital" title="Permalink to this definition">¶</a></dt>
 <dd><p>Erfassung digitaler Daten vom Infrarotsensor</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -269,7 +294,9 @@ und legt mit dem angepassten Inhalt eine config.py an.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Digitale Werte von dem Infrarotsensoren</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Liste von 5 int</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Liste von 5 bool</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>misread_limit</strong> (<em>int</em>) – Anzahl von Versuchen, den Sensor auszulesen bei vermeintliche Fehllesung</td>
 </tr>
 </tbody>
 </table>
@@ -330,19 +357,9 @@ Analoge und Digitale Werte von den Intrarotsensoren in eine CSV-Datei</p>
 <dl class="function">
 <dt id="BaseCar.func_fahrparcour4">
 <code class="descclassname">BaseCar.</code><code class="descname">func_fahrparcour4</code><span class="sig-paren">(</span><em>anzahl_hindernisse=3</em><span class="sig-paren">)</span><a class="headerlink" href="#BaseCar.func_fahrparcour4" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><ol class="arabic simple">
-<li>Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft 2. Das Auto weicht ingesammt 3 x einem Hindernis aus</li>
-</ol>
-</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>anzahl_hindernisse</strong> (<em>int</em>) – Anzahl der zu erkennenden Hindernisse im Parcour. Nach dieser Anzahl wird die Fahrt gestoppt.</td>
-</tr>
-</tbody>
-</table>
+<dd><p>1. Das Auto fährt solange vorwärts bis es auf ein Hindernis trifft 2. Das Auto weicht ingesammt 3 x einem Hindernis aus 
+:param anzahl_hindernisse: Anzahl der zu erkennenden Hindernisse im Parcour. Nach dieser Anzahl wird die Fahrt gestoppt.
+:type anzahl_hindernisse: int</p>
 </dd></dl>
 
 <dl class="function">
